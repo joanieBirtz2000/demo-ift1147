@@ -1,19 +1,31 @@
 <?php
-// ----------------------
-// EXERCICE 3 : ÉTUDIANTS
-// Objectif : pratiquer sort, asort, ksort, array_search, in_array, mise à jour d’élément
-// ----------------------
+$etudiants = [
+  ["nom"=>"Alice","programme"=>"Info","moyenne"=>85],
+  ["nom"=>"Bob","programme"=>"Math","moyenne"=>78],
+  ["nom"=>"Chloé","programme"=>"IA","moyenne"=>92],
+];
 
-// Étape 1 : Créez un tableau multidimensionnel $etudiants
-//           Chaque étudiant = ["nom"=>"Alice","programme"=>"Info","moyenne"=>85]
-// Étape 2 : Si $_POST["etudiants_json"] existe, décoder pour récupérer l’état
-// Étape 3 : Créez une variable $info = ""
+if (!empty($_POST["etudiants_json"])) {
+  $etudiants = json_decode($_POST["etudiants_json"], true);
+  if (!is_array($etudiants)) $etudiants = [];
+}
 
-// Étape 4 : Si la requête est POST :
-//    - action = $_POST["action"]
-//    - Si action = "tri_nom"      → trier $etudiants par nom avec usort (strcmp sur $a["nom"],$b["nom"])
-//    - Si action = "tri_moyenne"  → trier $etudiants par moyenne avec usort
-//    - Si action = "update"       → chercher l’étudiant avec array_search sur array_column($etudiants,"nom")
-//                                   puis mettre à jour la moyenne
-// Étape 5 : Tester in_array pour savoir si "Info" existe dans les programmes
-// Étape 6 : Encoder $etudiants en JSON
+$info = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  $action = $_POST["action"] ?? "";
+
+  if ($action === "tri_nom") {
+    // TODO: trier par nom avec usort ou ksort
+  }
+
+  if ($action === "tri_moyenne") {
+    // TODO: trier par moyenne avec usort ou asort
+  }
+
+  if ($action === "update") {
+    // TODO: chercher un étudiant avec array_search et mettre à jour la moyenne
+  }
+}
+
+$etudiants_json = json_encode($etudiants);

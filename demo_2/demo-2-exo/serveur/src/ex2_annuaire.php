@@ -1,19 +1,33 @@
 <?php
-// ----------------------
-// EXERCICE 2 : ANNUAIRE
-// Objectif : pratiquer array_unshift, array_shift, array_search, unset/array_values
-// ----------------------
+$contacts = [
+  ["nom"=>"Alice","tel"=>"514-111-1111"],
+  ["nom"=>"Bob","tel"=>"438-222-2222"],
+];
 
-// Étape 1 : Créez un tableau $contacts contenant au départ 2–3 contacts
-//           Chaque contact est un tableau associatif ["nom"=>"Alice","tel"=>"514-..."]
-// Étape 2 : Si $_POST["contacts_json"] existe, décoder pour récupérer l’état actuel
-// Étape 3 : Créez une variable $info = ""
+if (!empty($_POST["contacts_json"])) {
+  $contacts = json_decode($_POST["contacts_json"], true);
+}
 
-// Étape 4 : Si la requête est POST :
-//    - action = $_POST["action"]
-//    - Si action = "add_first"   → ajouter un contact en début avec array_unshift
-//    - Si action = "remove_first"→ retirer le premier avec array_shift
-//    - Si action = "update"      → chercher le contact avec array_search sur array_column($contacts,"nom")
-//                                   puis mettre à jour le téléphone
-//    - Si action = "delete"      → chercher le contact et le supprimer avec unset + array_values
-// Étape 5 : Encoder $contacts en JSON avec json_encode
+$info = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  $action = $_POST["action"] ?? "";
+
+  if ($action === "add_first") {
+    // TODO: utiliser array_unshift pour ajouter un contact au début
+  }
+
+  if ($action === "remove_first") {
+    // TODO: utiliser array_shift pour retirer le premier contact
+  }
+
+  if ($action === "update") {
+    // TODO: chercher un nom avec array_search et mettre à jour le tel
+  }
+
+  if ($action === "delete") {
+    // TODO: chercher un nom et le supprimer avec unset + array_values
+  }
+}
+
+$contacts_json = json_encode($contacts);

@@ -1,39 +1,57 @@
 <?php require_once("../../serveur/src/ex5_quiz.php"); ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
-  <title>Quiz</title>
+  <title>Exo 5 — Quiz avancé (squelette)</title>
   <link href="../util/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="container mt-5">
-  <h1>Mini Quiz HTTP</h1>
-  <form method="post" class="quiz-http">
-    <fieldset class="mb-3">
-      <legend>1. Pour envoyer un mot de passe ?</legend>
-      <label><input type="radio" name="q1" value="GET"> GET</label>
-      <label><input type="radio" name="q1" value="POST"> POST</label>
-    </fieldset>
-    <fieldset class="mb-3">
-      <legend>2. Code HTTP succès ?</legend>
-      <label><input type="radio" name="q2" value="200"> 200</label>
-      <label><input type="radio" name="q2" value="404"> 404</label>
-    </fieldset>
-    <fieldset class="mb-3">
-      <legend>3. Qui traduit un domaine en IP ?</legend>
-      <label><input type="radio" name="q3" value="DNS"> DNS</label>
-      <label><input type="radio" name="q3" value="HTML"> HTML</label>
-    </fieldset>
+
+<body class="container py-5">
+  <h2 class="mb-3">Exercice 5 — Quiz avancé (Tableaux multidimensionnels)</h2>
+
+  <!-- Info structure (array_is_list) -->
+  <div class="alert alert-<?= $isList ? 'success' : 'danger' ?>">
+    $questions est une "liste" ? <strong><?= $isList ? "Oui" : "Non" ?></strong> (array_is_list)
+  </div>
+
+  <form method="post" class="quiz-advanced">
+    <?php foreach ($questions as $i => $q): ?>
+      <fieldset class="mb-3 p-3 border rounded">
+        <legend class="h6 mb-2"><?= htmlspecialchars($q["q"]) ?></legend>
+
+        <?php foreach ($q["reponses"] as $r): ?>
+          <label class="me-3">
+            <input type="radio" name="q<?= $i ?>" value="<?= htmlspecialchars($r) ?>">
+            <?= htmlspecialchars($r) ?>
+          </label>
+        <?php endforeach; ?>
+
+        <?php if ($score !== null): ?>
+          <?php
+          // Affichage du feedback s’il existe (donné par le serveur)
+          $ok = $feedback[$i]["ok"] ?? false;
+          $c  = $feedback[$i]["correct"] ?? "";
+          ?>
+          <div class="mt-2 small <?= $ok ? 'text-success' : 'text-danger' ?>">
+            <?= $ok ? "Bonne réponse " : "Mauvaise réponse — Correct : " . htmlspecialchars($c) ?>
+          </div>
+        <?php endif; ?>
+      </fieldset>
+    <?php endforeach; ?>
+
     <button class="btn btn-primary">Valider</button>
   </form>
 
   <?php if ($score !== null): ?>
     <div class="alert alert-info mt-3">
-      Score : <?= $score ?>/<?= $totalQuestions ?>
+      Score : <strong><?= $score ?></strong> / <?= $total ?> (count)
     </div>
   <?php endif; ?>
 
   <script src="../util/jquery-3.7.1.min.js"></script>
   <script src="../js/global.js"></script>
 </body>
+
 </html>
