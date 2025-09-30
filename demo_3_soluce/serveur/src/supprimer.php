@@ -8,22 +8,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Lire tous les films
         $tabFilms = lireFilmsDepuisFichier();
 
-        // Garder uniquement les films dont l'idf est différent
-        $nouveauTab = array_filter($tabFilms, fn($film) => $film['idf'] != $id);
-        $nouveauTab = array_values($nouveauTab);
+         unset($tabFilms[$id-1]);
 
-
-
-        // Parcours pour supprimer par "idf"
-        // foreach ($tabFilms as $key => $film) {
-        //     if ($film['idf'] == $id) {
-        //         unset($tabFilms[$key]);
-        //         break; // on arrête après avoir trouvé
-        //     }
-        // }
-
-        // // Réindexer
-        // $nouveauTab = array_values($tabFilms);
+        // Réattribuer les idf (1,2,3,...) pour chaque film restant
+        foreach ($nouveauTab as $i => &$film) {
+            $film['idf'] = $i + 1;
+        }
+        unset($film); // bonne pratique quand foreach utilise &
 
         // Réécrire dans le fichier
         ecrireFilmsDansFichier($nouveauTab);
