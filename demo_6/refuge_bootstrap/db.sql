@@ -1,0 +1,14 @@
+-- refuge_bootstrap/db.sql
+CREATE DATABASE IF NOT EXISTS refuge_demo
+  DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE refuge_demo;
+
+CREATE TABLE IF NOT EXISTS animaux (
+  id INT NOT NULL AUTO_INCREMENT,
+  nom VARCHAR(60) NOT NULL,
+  espece VARCHAR(40) NOT NULL,
+  age INT NOT NULL CHECK (age >= 0),
+  arrivee DATE NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
