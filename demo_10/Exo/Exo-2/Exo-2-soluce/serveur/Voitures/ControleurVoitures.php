@@ -40,18 +40,17 @@ class ControleurVoiture
         $dao = new VoitureDAO();
         $voitures = $dao->lister();
 
-        // Transformer les objets en tableaux simples pour le JSON
         $data = [];
         foreach ($voitures as $v) {
             $data[] = [
-                'id'            => $v->id,
-                'marque'        => $v->marque,
-                'modele'        => $v->modele,
-                'description'   => $v->description,
-                'type_carburant'=> $v->typeCarburant,
-                'prix'          => $v->prix,
-                'date_arrivee'  => $v->dateArrivee,
-                'photo'         => $v->photo,
+                'id'             => $v->id,
+                'marque'         => $v->marque,
+                'modele'         => $v->modele,
+                'description'    => $v->description,
+                'type_carburant' => $v->typeCarburant,
+                'prix'           => $v->prix,
+                'date_arrivee'   => $v->dateArrivee,
+                'photo'          => $v->photo,
             ];
         }
 
@@ -66,16 +65,15 @@ class ControleurVoiture
      */
     private static function sauver(): void
     {
-        $id            = isset($_POST['id']) && $_POST['id'] !== '' ? (int)$_POST['id'] : null;
-        $marque        = trim($_POST['marque']        ?? '');
-        $modele        = trim($_POST['modele']        ?? '');
-        $description   = trim($_POST['description']   ?? '');
-        $typeCarburant = $_POST['type_carburant']     ?? 'ESSENCE';
-        $prix          = (float)($_POST['prix']       ?? 0);
-        $dateArrivee   = $_POST['date_arrivee']       ?? date('Y-m-d');
-        $photo         = $_POST['photo']              ?? null; // si tu gères upload, adapter
+        $id             = isset($_POST['id']) && $_POST['id'] !== '' ? (int)$_POST['id'] : null;
+        $marque         = trim($_POST['marque']        ?? '');
+        $modele         = trim($_POST['modele']        ?? '');
+        $description    = trim($_POST['description']   ?? '');
+        $typeCarburant  = $_POST['type_carburant']     ?? 'ESSENCE';
+        $prix           = (float)($_POST['prix']       ?? 0);
+        $dateArrivee    = $_POST['date_arrivee']       ?? date('Y-m-d');
+        $photo          = $_POST['photo']              ?? null; // à adapter si upload
 
-        // Validation très simple
         if ($marque === '' || $modele === '' || $prix <= 0) {
             echo json_encode([
                 'succes'  => false,
@@ -98,10 +96,10 @@ class ControleurVoiture
         $dao = new VoitureDAO();
 
         if ($id === null) {
-            $ok = $dao->creer($voiture);
+            $ok  = $dao->creer($voiture);
             $msg = $ok ? 'Voiture ajoutée avec succès.' : 'Erreur lors de la création.';
         } else {
-            $ok = $dao->mettreAJour($voiture);
+            $ok  = $dao->mettreAJour($voiture);
             $msg = $ok ? 'Voiture mise à jour.' : 'Erreur lors de la mise à jour.';
         }
 

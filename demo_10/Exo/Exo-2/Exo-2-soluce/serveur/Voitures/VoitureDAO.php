@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Voiture;
@@ -18,7 +17,6 @@ class VoitureDAO
 
     public function __construct()
     {
-        // Connexion PDO (Singleton)
         $this->db = \Connexion::getConnexion();
     }
 
@@ -86,13 +84,13 @@ class VoitureDAO
                 VALUES (:marque, :modele, :description, :type_carburant, :prix, :date_arrivee, :photo)";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':marque',        $v->marque);
-        $stmt->bindValue(':modele',        $v->modele);
-        $stmt->bindValue(':description',   $v->description);
+        $stmt->bindValue(':marque',         $v->marque);
+        $stmt->bindValue(':modele',         $v->modele);
+        $stmt->bindValue(':description',    $v->description);
         $stmt->bindValue(':type_carburant', $v->typeCarburant);
-        $stmt->bindValue(':prix',          $v->prix);
-        $stmt->bindValue(':date_arrivee',  $v->dateArrivee);
-        $stmt->bindValue(':photo',         $v->photo);
+        $stmt->bindValue(':prix',           $v->prix);
+        $stmt->bindValue(':date_arrivee',   $v->dateArrivee);
+        $stmt->bindValue(':photo',          $v->photo);
 
         return $stmt->execute();
     }
@@ -113,14 +111,14 @@ class VoitureDAO
                 WHERE id_voiture = :id";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':marque',        $v->marque);
-        $stmt->bindValue(':modele',        $v->modele);
-        $stmt->bindValue(':description',   $v->description);
+        $stmt->bindValue(':marque',         $v->marque);
+        $stmt->bindValue(':modele',         $v->modele);
+        $stmt->bindValue(':description',    $v->description);
         $stmt->bindValue(':type_carburant', $v->typeCarburant);
-        $stmt->bindValue(':prix',          $v->prix);
-        $stmt->bindValue(':date_arrivee',  $v->dateArrivee);
-        $stmt->bindValue(':photo',         $v->photo);
-        $stmt->bindValue(':id',            $v->id, PDO::PARAM_INT);
+        $stmt->bindValue(':prix',           $v->prix);
+        $stmt->bindValue(':date_arrivee',   $v->dateArrivee);
+        $stmt->bindValue(':photo',          $v->photo);
+        $stmt->bindValue(':id',             $v->id, PDO::PARAM_INT);
 
         return $stmt->execute();
     }

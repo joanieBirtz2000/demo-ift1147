@@ -1,11 +1,9 @@
-// client/public/voitures/RequeteVoitures.js
-const URL_ROUTE = "../../../serveur/routes.php";
+// client/public/voitures/RequetesVoitures.js
+const API_BASE = "../../../serveur"; // dossier qui contient .htaccess + routes.php
 
 // READ
 export async function apiListerVoitures() {
-  const url = `${URL_ROUTE}?entite=voiture&action=liste`;
-
-  const resp = await fetch(url);
+  const resp = await fetch(`${API_BASE}/voiture/liste`);
   if (!resp.ok) {
     throw new Error("Erreur HTTP lors du chargement des voitures.");
   }
@@ -14,11 +12,7 @@ export async function apiListerVoitures() {
 
 // CREATE / UPDATE
 export async function apiSauverVoiture(formData, isEdition) {
-  // On ajoute les paramètres nécessaires pour le routeur
-  formData.append("entite", "voiture");
-  formData.append("action", "sauver");
-
-  const resp = await fetch(URL_ROUTE, {
+  const resp = await fetch(`${API_BASE}/voiture/sauver`, {
     method: "POST",
     body: formData,
   });
@@ -33,11 +27,9 @@ export async function apiSauverVoiture(formData, isEdition) {
 // DELETE
 export async function apiSupprimerVoiture(id) {
   const formData = new FormData();
-  formData.append("entite", "voiture");
-  formData.append("action", "supprimer");
   formData.append("id", id);
 
-  const resp = await fetch(URL_ROUTE, {
+  const resp = await fetch(`${API_BASE}/voiture/supprimer`, {
     method: "POST",
     body: formData,
   });

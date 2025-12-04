@@ -13,7 +13,10 @@ const inputId = document.getElementById("voiture-id");
 
 document.addEventListener("DOMContentLoaded", () => {
   chargerVoituresVue().catch((err) => {
-    afficherMessage("Erreur lors du chargement des voitures : " + err.message, false);
+    afficherMessage(
+      "Erreur lors du chargement des voitures : " + err.message,
+      false
+    );
   });
 });
 
@@ -21,7 +24,10 @@ async function chargerVoituresVue() {
   const json = await apiListerVoitures();
 
   if (!json.succes) {
-    afficherMessage(json.message || "Erreur lors du chargement des voitures.", false);
+    afficherMessage(
+      json.message || "Erreur lors du chargement des voitures.",
+      false
+    );
     return;
   }
 
@@ -44,7 +50,10 @@ if (form) {
       const json = await apiSauverVoiture(formData, isEdition);
 
       if (!json.succes) {
-        afficherMessage(json.message || "Erreur lors de l'enregistrement.", false);
+        afficherMessage(
+          json.message || "Erreur lors de l'enregistrement.",
+          false
+        );
       } else {
         afficherMessage(json.message || "Enregistrement réussi.", true);
         form.reset();
@@ -94,7 +103,6 @@ function ajouterLigneVoiture(voiture) {
   btnEdit.textContent = "Modifier";
 
   btnEdit.addEventListener("click", () => {
-    // Remplir le formulaire avec les données de la voiture
     inputId.value = voiture.id;
     document.getElementById("marque").value = voiture.marque;
     document.getElementById("modele").value = voiture.modele;
@@ -116,7 +124,10 @@ function ajouterLigneVoiture(voiture) {
     try {
       const json = await apiSupprimerVoiture(voiture.id);
       if (!json.succes) {
-        afficherMessage(json.message || "Erreur lors de la suppression.", false);
+        afficherMessage(
+          json.message || "Erreur lors de la suppression.",
+          false
+        );
       } else {
         afficherMessage(json.message || "Voiture supprimée.", true);
         await chargerVoituresVue();
