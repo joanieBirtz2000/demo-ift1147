@@ -1,0 +1,25 @@
+DROP DATABASE IF EXISTS garage_voitures;
+
+CREATE DATABASE garage_voitures
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_general_ci;
+
+USE garage_voitures;
+
+DROP TABLE IF EXISTS voiture;
+
+CREATE TABLE voiture (
+  id_voiture INT AUTO_INCREMENT PRIMARY KEY,
+  marque VARCHAR(100) NOT NULL,
+  modele VARCHAR(100) NOT NULL,
+  description TEXT,
+  type_carburant ENUM('ESSENCE', 'DIESEL', 'HYBRIDE', 'ELECTRIQUE') NOT NULL DEFAULT 'ESSENCE',
+  prix DECIMAL(10,2) NOT NULL,
+  date_arrivee DATE NOT NULL,
+  photo VARCHAR(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO voiture (marque, modele, description, type_carburant, prix, date_arrivee, photo) VALUES
+('Toyota', 'Corolla', 'Compacte fiable', 'ESSENCE', 22000.00, '2024-09-01', NULL),
+('Tesla', 'Model 3', 'Berline 100% électrique', 'ELECTRIQUE', 48000.00, '2024-10-15', NULL),
+('Hyundai', 'Ioniq 5', 'VUS électrique moderne', 'ELECTRIQUE', 52000.00, '2024-11-05', NULL);
